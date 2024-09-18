@@ -2,9 +2,11 @@
 python -V
 PAUSE
 
-pip install PyScreeze
+pip install pyscreeze
 
 pip install pywin32
+
+pip install win32gui
 
 pip install keyboard
 
@@ -12,14 +14,15 @@ pip install pyautogui
 
 pip install opencv-python
 
+pip install pillow --upgrade
+
 pip install pydirectinput
 
-pip install Pillow --upgrade
+pip install threading
 
 pip install stopwatch.py
 
-pip install counter 
-
+pip install counter
 
 ECHO You're all setup, enjoy.
 PAUSE

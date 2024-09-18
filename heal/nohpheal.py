@@ -7,20 +7,27 @@ import time
 
 log = logging.getLogger(__name__)
 
+# Alias for the ImageNotFoundException so you dont need to type it out every time.
+ImageNotFound = pyautogui.ImageNotFoundException
+
 def heal():
     while True:
-        if pyautogui.locateOnScreen('images/healskip.png', grayscale=True, confidence=0.9) != None:
-            pydirectinput.click(1056, 574)
-            logging.info("heal skip detected")
-            time.sleep(1.5)
+        try:
+            if pyautogui.locateOnScreen('images/dead.png', grayscale=False, confidence=0.6) is not None:
+                logging.info("Died or MIA")
+        except ImageNotFound:
+            pass
 
-        elif pyautogui.locateOnScreen('images/dead.png', grayscale=False, confidence=0.75) != None:
-            logging.info("Died or MIA")
+        try:
             next_img = pyautogui.locateOnScreen('images/next.png', grayscale=True, confidence=0.7)
-            for x in range(4):
-                pydirectinput.click(next_img.left + 20, next_img.top + 20)
-                time.sleep(1)
-            
+            if next_img is not None:
+                for _ in range(4):
+                    pydirectinput.click(next_img.left + 20, next_img.top + 20)
+                    time.sleep(1)
+        except ImageNotFound:
+            pass
+        
+        try:
             general_health = pyautogui.locateOnScreen('images/general_health.png', grayscale=True, confidence=0.7)
             if general_health is not None:
                 pydirectinput.click(general_health.left + 20, general_health.top + 20)
@@ -28,10 +35,12 @@ def heal():
                 apply_button = pyautogui.locateOnScreen('images/apply.png', grayscale=True, confidence=0.7)
                 pydirectinput.click(apply_button.left + 20, apply_button.top + 20)
                 time.sleep(1)
-            
-            pydirectinput.click(next_img.left + 20, next_img.top + 20)
+                pydirectinput.click(next_img.left + 20, next_img.top + 20)
+        except ImageNotFound:
+            pass    
 
-
+        time.sleep(1)
+                
 def run():
     heal_thread = threading.Thread(target=heal)
     heal_thread.start()
