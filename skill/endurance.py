@@ -166,6 +166,7 @@ def game():
         elif pyautogui.locateOnScreen('images/ingame.png', grayscale=True, confidence=0.45) != None:
             pause_event.wait()
             #run afk bot
+            logging.info("In Game")
             pydirectinput.moveTo(5, 540)
             pydirectinput.keyDown('w')
             time.sleep(0.2)
