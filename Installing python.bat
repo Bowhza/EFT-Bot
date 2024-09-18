@@ -6,8 +6,6 @@ pip install PyScreeze
 
 pip install pywin32
 
-pip install win32gui
-
 pip install keyboard
 
 pip install pyautogui
