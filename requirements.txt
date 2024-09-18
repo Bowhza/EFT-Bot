@@ -2,3 +2,6 @@ PyAutoGUI~=0.9.54
 PyDirectInput~=1.0.4
 keyboard~=0.13.5
 pillow~=10.4.0
+stopwatch.py~=2.0.1
+opencv-python~=4.10.0.84
+pywin32~=306
