@@ -1,3 +1,7 @@
+## This bot was made by another person and is currently being rewritten/refactored. Disregard the readme until further notice.
+
+
+
 ***EFT Skill & Death bot***
 
 Welcome to the script, this a bot for leveling up your endurance, strength, and covert. It also inherently is a KD dropper. It uses image recognitiion to detect images and make clicks for you. It will run around in game for you like the little bot you are, enjoy.
