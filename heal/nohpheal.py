@@ -33,9 +33,10 @@ def heal():
                 pydirectinput.click(general_health.left + 20, general_health.top + 20)
                 time.sleep(1)
                 apply_button = pyautogui.locateOnScreen('images/apply.png', grayscale=True, confidence=0.7)
-                pydirectinput.click(apply_button.left + 20, apply_button.top + 20)
-                time.sleep(1)
-                pydirectinput.click(next_img.left + 20, next_img.top + 20)
+                if apply_button is not None:
+                    pydirectinput.click(apply_button.left + 20, apply_button.top + 20)
+                    time.sleep(1)
+                    pydirectinput.click(next_img.left + 20, next_img.top + 20)
         except ImageNotFound:
             pass    
 
