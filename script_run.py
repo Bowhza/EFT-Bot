@@ -47,6 +47,7 @@ skills = [
     ["Covert", skill.covert.run],
 ]
 
+
 # Function to display options and return the selection
 def choose_option(options, option_type):
     print(f"Please choose a {option_type}:")
@@ -64,6 +65,7 @@ def choose_option(options, option_type):
         except ValueError:
             print("Please enter a valid number.")
 
+
 # Main bot logic
 def main():
     # Map selection
@@ -80,6 +82,7 @@ def main():
     map_choice()        # Run the selected map
     healing_choice()    # Apply healing method
     skill_choice()      # Train selected skill
+
 
 if __name__ == "__main__":
     main()

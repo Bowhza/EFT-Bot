@@ -19,7 +19,8 @@ def map():
                 pydirectinput.click(factory_img.left + 20, factory_img.top + 20)
                 time.sleep(1)
                 ready_img = pyautogui.locateOnScreen('images/ready.png', confidence=0.7)
-                pydirectinput.click(ready_img.left + 20, ready_img.top + 20)
+                if ready_img is not None:
+                    pydirectinput.click(ready_img.left + 20, ready_img.top + 20)
         except ImageNotFound:
             pass
             
