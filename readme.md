@@ -1,4 +1,6 @@
-## This bot was made by another person and is currently being rewritten/refactored. Disregard the readme until further notice.
+> [!Caution]
+> ### This bot was made by another person and is currently being rewritten/refactored.
+> ### Disregard the readme until further notice.
 
 
 
