@@ -6,7 +6,6 @@ import heal.noheal
 import heal.nohpheal
 import heal.fullheal
 
-
 # Setup logging
 logging.basicConfig(level=logging.INFO, format="[%(asctime)s] [%(levelname)s] - %(message)s",
                     datefmt="%d-%b-%y %H:%M:%S", handlers=[
