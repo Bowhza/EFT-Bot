@@ -1,18 +1,11 @@
 import logging
-import map.groundzero
+import select_map
 import skill.endurance
 import skill.covert
 import heal.noheal
 import heal.nohpheal
 import heal.fullheal
-import map.shoreline
-import map.customs
-import map.factory
-import map.interchange
-import map.lighthouse
-import map.reserve
-import map.streets
-import map.woods
+
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format="[%(asctime)s] [%(levelname)s] - %(message)s",
@@ -23,15 +16,15 @@ logging.basicConfig(level=logging.INFO, format="[%(asctime)s] [%(levelname)s] - 
 
 # Map options
 maps = [
-    ["Shoreline", map.shoreline.run],
-    ["Woods", map.woods.run],
-    ["Customs", map.customs.run],
-    ["Factory", map.factory.run],
-    ["Interchange", map.interchange.run],
-    ["Lighthouse", map.lighthouse.run],
-    ["Reserve", map.reserve.run],
-    ["Streets Of Tarkov", map.streets.run],
-    ["Ground Zero", map.groundzero.run],
+    ["Shoreline", lambda: select_map.run_map("shoreline")],
+    ["Woods", lambda: select_map.run_map("woods")],
+    ["Customs", lambda: select_map.run_map("customs")],
+    ["Factory", lambda: select_map.run_map("factory")],
+    ["Interchange", lambda: select_map.run_map("interchange")],
+    ["Lighthouse", lambda: select_map.run_map("lighthouse")],
+    ["Reserve", lambda: select_map.run_map("reserve")],
+    ["Streets Of Tarkov", lambda: select_map.run_map("streets")],
+    ["Ground Zero", lambda: select_map.run_map("groundzero")],
 ]
 
 # Healing options
