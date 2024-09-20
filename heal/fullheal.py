@@ -7,7 +7,7 @@ import time
 
 log = logging.getLogger(__name__)
 
-# Alias for the ImageNotFoundException so you dont need to type it out every time.
+# Alias for the ImageNotFoundException, so you don't need to type it out every time.
 ImageNotFound = pyautogui.ImageNotFoundException
 
 def heal():
@@ -38,8 +38,3 @@ def heal():
             pydirectinput.click(next_img.left + 20, next_img.top + 20)
         except ImageNotFound:
             pass
-
-
-def run():
-    heal_thread = threading.Thread(target=heal)
-    heal_thread.start()

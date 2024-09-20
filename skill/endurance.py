@@ -15,7 +15,7 @@ raid_counter = 0
 
 log = logging.getLogger(__name__)
 
-# Alias for the ImageNotFoundException so you dont need to type it out every time.
+# Alias for the ImageNotFoundException, so you don't need to type it out every time.
 ImageNotFound = pyautogui.ImageNotFoundException
 
 
@@ -156,7 +156,6 @@ def game():
             if pyautogui.locateOnScreen('images/lowstam.png', grayscale=True, confidence=0.9) is not None:
                 pause_event.wait()
                 logging.info("Stamina low, waiting to recover")
-                #prevent any bot
                 time.sleep(20)
         except ImageNotFound:
             pass
@@ -165,7 +164,6 @@ def game():
             if pyautogui.locateOnScreen('images/bush.png', grayscale=True, confidence=0.9) is not None:
                 pause_event.wait()
                 logging.info("Bush detected, attempting to move away")
-                #run avoid bush
                 pydirectinput.keyDown('w')
                 time.sleep(3)
                 pydirectinput.keyUp('w')
@@ -175,7 +173,6 @@ def game():
         try:
             if pyautogui.locateOnScreen('images/ingame.png', grayscale=True, confidence=0.45) is not None:
                 pause_event.wait()
-                #run afk bot
                 logging.info("In Game")
                 pydirectinput.moveTo(5, 540)
                 pydirectinput.keyDown('w')
@@ -226,11 +223,11 @@ def toggle_pause():
 
 def run():        
     restart_game_thread = threading.Thread(target=_restart_game, name="RestartGameThread")
-    heal_thread = threading.Thread(target=game, name="HealThread")
+    game_thread = threading.Thread(target=game, name="GameThread")
     wait_deploy_thread = threading.Thread(target=_wait_deploy, name="WaitDeployThread")
 
     threads.add(restart_game_thread)
-    threads.add(heal_thread) 
+    threads.add(game_thread)
     threads.add(wait_deploy_thread)
 
     for thread in threads:

@@ -6,12 +6,11 @@ import time
 
 log = logging.getLogger(__name__)
 
-# Alias for the ImageNotFoundException so you dont need to type it out every time.
+# Alias for the ImageNotFoundException, so you don't need to type it out every time.
 ImageNotFound = pyautogui.ImageNotFoundException
 
 
 def run_map(map_name):
-    
     while True:
         try:
             map_img = pyautogui.locateOnScreen(f"images/{map_name}.png", confidence=0.7)
@@ -24,8 +23,3 @@ def run_map(map_name):
                     pydirectinput.click(ready_img.left + 20, ready_img.top + 20)
         except ImageNotFound:
             pass
-
-
-def run(map_name):
-    map_thread = threading.Thread(target=run_map, args=map_name)
-    map_thread.start()

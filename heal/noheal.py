@@ -7,13 +7,14 @@ import time
 
 log = logging.getLogger(__name__)
 
-# Alias for the ImageNotFoundException so you dont need to type it out every time.
+# Alias for the ImageNotFoundException, so you don't need to type it out every time.
 ImageNotFound = pyautogui.ImageNotFoundException
+
 
 def heal():
     while True:
         try:
-            if pyautogui.locateOnScreen('images/healskip.png', grayscale=True, confidence=0.75) != None:
+            if pyautogui.locateOnScreen('images/healskip.png', grayscale=True, confidence=0.75) is not None:
                 pydirectinput.click(1056, 574)
                 logging.info("heal skip detected")
                 time.sleep(1.5)
@@ -21,7 +22,7 @@ def heal():
             pass
 
         try:
-            if pyautogui.locateOnScreen('images/dead.png', confidence=0.75) != None:
+            if pyautogui.locateOnScreen('images/dead.png', confidence=0.75) is not None:
                 logging.info("Died or MIA")
                 next_img = pyautogui.locateOnScreen('images/next.png', grayscale=True, confidence=0.7)
                 for x in range(5):
@@ -29,9 +30,3 @@ def heal():
                     time.sleep(1)
         except ImageNotFound:
             pass
-                
-
-
-def run():
-    heal_thread = threading.Thread(target=heal)
-    heal_thread.start()
