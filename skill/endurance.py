@@ -4,6 +4,7 @@ import logging
 import time
 import threading
 import keyboard
+from tools.image_scale import locate_image_on_screen
 from stopwatch import Stopwatch
 
 # Stopwatch with 2 decimal place accuracy
@@ -33,13 +34,13 @@ def _restart_game():
         pydirectinput.keyUp('f4')
 
 
-def game():
+def game(scale_factor):
     while True:
         try:
-            if pyautogui.locateOnScreen('images/terminated.png', grayscale=True, confidence=0.7) is not None:
+            if locate_image_on_screen("terminated.png", scale_factor) is not None:
                 pause_event.wait()
                 logging.info("Game Crashed/Terminated")
-                no_button = pyautogui.locateOnScreen('images/no.png', grayscale=True, confidence=0.7)
+                no_button = locate_image_on_screen("no.png", scale_factor)
                 if no_button is not None:
                     logging.info("Clicking No Button")
                     pyautogui.click(no_button.left, no_button.top)
@@ -47,16 +48,16 @@ def game():
             pass
 
         try:
-            if pyautogui.locateOnScreen('images/launcher.png', grayscale=True, confidence=0.5) is not None:
+            if locate_image_on_screen("launcher.png", scale_factor, confidence=0.5) is not None:
                 pause_event.wait()
 
                 logging.info('Game Crashed or launching')
-                yes = pyautogui.locateOnScreen('images/usererroryes.png')
+                yes = locate_image_on_screen("yes.png", scale_factor)
                 if yes is not None:
                     time.sleep(1)
                     pyautogui.click(yes)
 
-                play = pyautogui.locateOnScreen('images/play.png', confidence=0.8)
+                play = locate_image_on_screen("play.png", scale_factor, confidence=0.8)
                 if play is not None:
                     time.sleep(2)
                     pyautogui.click(play)
@@ -88,7 +89,7 @@ def game():
             pass
 
         try:
-            eft_menu = pyautogui.locateOnScreen('images/eftmenu.png', grayscale=True, confidence=0.7)
+            eft_menu = locate_image_on_screen("eftmenu.png", scale_factor, confidence=0.7)
             if eft_menu is not None:
                 pause_event.wait()
                 pydirectinput.click(eft_menu.left, eft_menu.top)
@@ -221,9 +222,9 @@ def toggle_pause():
         pause_event.set()
 
 
-def run():        
+def run(scale_factor=1):
     restart_game_thread = threading.Thread(target=_restart_game, name="RestartGameThread")
-    game_thread = threading.Thread(target=game, name="GameThread")
+    game_thread = threading.Thread(target=game, name="GameThread", args=[scale_factor])
     wait_deploy_thread = threading.Thread(target=_wait_deploy, name="WaitDeployThread")
 
     threads.add(restart_game_thread)

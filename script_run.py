@@ -1,12 +1,13 @@
 import logging
 import threading
-
 import select_map
 import skill.endurance
 import skill.covert
 import heal.noheal
 import heal.nohpheal
 import heal.fullheal
+
+from tools.image_scale import get_scale_factor
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format="[%(asctime)s] [%(levelname)s] - %(message)s",
@@ -38,7 +39,8 @@ health = [
 
 # Skill options wrapped in lambdas
 skills = [
-    ["Endurance/strength", lambda: (logging.info("Training Endurance/Strength"), skill.endurance.run())],
+    ["Endurance/strength", lambda: (logging.info("Training Endurance/Strength"),
+                                    skill.endurance.run(scale_factor=get_scale_factor()))],
     ["Covert", lambda: (logging.info("Training Covert"), skill.covert.run())],
 ]
 
@@ -63,6 +65,7 @@ def choose_option(options, option_type):
 
 # Main bot logic
 def main():
+
     # Map selection
     map_choice = choose_option(maps, "map")
 
