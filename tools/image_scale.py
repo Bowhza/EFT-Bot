@@ -32,18 +32,18 @@ def locate_image_on_screen(image_name, scale_factor, confidence=0.7, grayscale=T
     return pyautogui.locateOnScreen(image_path, confidence=confidence, grayscale=grayscale)
 
 
-def run_image_scaling():
+def run_image_scaling(image_path='../images'):
     scale_factor = get_scale_factor()
 
-    resized_images_path = os.path.join('../images', str(pyautogui.size().height))
+    resized_images_path = os.path.join(image_path, str(pyautogui.size().height))
 
     if not os.path.exists(resized_images_path):
         os.mkdir(resized_images_path)
 
     if scale_factor != 1:
-        for image_name in os.listdir('../images'):
+        for image_name in os.listdir(image_path):
             if image_name.endswith('.png'):
-                image_path = os.path.join('../images', image_name)
+                image_path = os.path.join(image_path, image_name)
                 scale_image(image_path, scale_factor)
 
 
