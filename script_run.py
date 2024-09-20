@@ -34,11 +34,11 @@ maps = [
 
 # Healing options wrapped in lambdas
 health = [
-    ["Full heal", lambda: (logging.info("Applying Full Heal"), heal.fullheal.heal())],
+    ["Full heal", lambda: (logging.info("Applying Full Heal"), heal.fullheal.heal(scale_factor=scale_factor))],
     ["Only heal breaks and bleeds",
      lambda: (logging.info("Applying Only Heal Breaks and Bleeds"),
               heal.nohpheal.heal(scale_factor=scale_factor))],
-    ["Don't heal", lambda: (logging.info("Not Healing"), heal.noheal.heal())],
+    ["Don't heal", lambda: (logging.info("Not Healing"), heal.noheal.heal(scale_factor=scale_factor))],
 ]
 
 # Skill options wrapped in lambdas
