@@ -1,5 +1,8 @@
 import logging
 import threading
+
+import pyautogui
+
 import select_map
 import skill.endurance
 import skill.covert
@@ -65,7 +68,6 @@ def choose_option(options, option_type):
 
 # Main bot logic
 def main():
-
     # Map selection
     map_choice = choose_option(maps, "map")
 
