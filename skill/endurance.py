@@ -57,7 +57,7 @@ def game(scale_factor):
                     time.sleep(1)
                     pyautogui.click(no)
 
-                play = locate_image_on_screen("play.png", scale_factor, confidence=0.6)
+                play = locate_image_on_screen("play.png", scale_factor, confidence=0.8)
                 if play is not None:
                     time.sleep(2)
                     pyautogui.click(play)
@@ -67,7 +67,7 @@ def game(scale_factor):
             pass
 
         try:
-            if locate_image_on_screen("game.png", scale_factor) is not None:
+            if locate_image_on_screen("game.png", scale_factor, confidence=0.95) is not None:
                 pause_event.wait()
                 game_img = locate_image_on_screen("game.png", scale_factor)
                 if game is not None:
@@ -155,7 +155,7 @@ def game(scale_factor):
 
         try:
             if locate_image_on_screen("lowstam.png", scale_factor,
-                                      grayscale=False, confidence=0.9) is not None:
+                                      grayscale=False, confidence=0.7) is not None:
                 pause_event.wait()
                 logging.info("Stamina low, waiting to recover")
                 time.sleep(20)
@@ -173,7 +173,7 @@ def game(scale_factor):
             pass
         
         try:
-            if locate_image_on_screen("ingame.png", scale_factor) is not None:
+            if locate_image_on_screen("ingame.png", scale_factor, confidence=.45) is not None:
                 pause_event.wait()
                 logging.info("In Game")
                 pydirectinput.moveTo(5, 540)
