@@ -69,9 +69,9 @@ def game(scale_factor):
         try:
             if locate_image_on_screen("game.png", scale_factor) is not None:
                 pause_event.wait()
-                game = locate_image_on_screen("game.png")
+                game_img = locate_image_on_screen("game.png", scale_factor)
                 if game is not None:
-                    pyautogui.click(game)
+                    pyautogui.click(game_img)
                     logging.info("Launching game")
                     time.sleep(1)
         except ImageNotFound:
@@ -81,7 +81,7 @@ def game(scale_factor):
             if locate_image_on_screen("exit.png", scale_factor) is not None:
                 pause_event.wait()
                 time.sleep(0.5)
-                no2_button = locate_image_on_screen("no2.png", confidence=0.8)
+                no2_button = locate_image_on_screen("no2.png", scale_factor, confidence=0.8)
                 if no2_button is not None:
                     pyautogui.click(no2_button)
                     logging.info("False exit, returning to main menu")
@@ -154,7 +154,8 @@ def game(scale_factor):
             pass
 
         try:
-            if locate_image_on_screen("lowstam.png", scale_factor) is not None:
+            if locate_image_on_screen("lowstam.png", scale_factor,
+                                      grayscale=False, confidence=0.9) is not None:
                 pause_event.wait()
                 logging.info("Stamina low, waiting to recover")
                 time.sleep(20)
@@ -196,18 +197,6 @@ def game(scale_factor):
             pass
 
 
-def _wait_deploy(scale_factor):
-    while True:
-        try:
-            pause_event.wait()
-            if locate_image_on_screen("deploying.png", scale_factor) is not None:
-                logging.info("Deploying soon")
-                time.sleep(300)
-                pydirectinput.click(956, 1015)
-        except ImageNotFound:
-            pass
-
-
 threads = set()
 pause_event = threading.Event()
 pause_event.set()
@@ -225,11 +214,9 @@ def toggle_pause():
 def run(scale_factor=1):
     restart_game_thread = threading.Thread(target=_restart_game, name="RestartGameThread")
     game_thread = threading.Thread(target=game, name="GameThread", args=[scale_factor])
-    wait_deploy_thread = threading.Thread(target=_wait_deploy, name="WaitDeployThread")
 
     threads.add(restart_game_thread)
     threads.add(game_thread)
-    threads.add(wait_deploy_thread)
 
     for thread in threads:
         thread.start()
