@@ -4,6 +4,7 @@ import logging
 import time
 import threading
 import keyboard
+from tools.image_scale import locate_image_on_screen
 from stopwatch import Stopwatch
 
 # Stopwatch with 2 decimal place accuracy
@@ -27,19 +28,17 @@ def _restart_game():
 
         pydirectinput.keyUp('shift')
         pydirectinput.keyUp('w')
-        pydirectinput.keyDown('alt')
-        pydirectinput.keyDown('f4')
-        pydirectinput.keyUp('alt')
-        pydirectinput.keyUp('f4')
+
+        pydirectinput.hotkey("alt", "f4")
 
 
-def game():
+def game(scale_factor):
     while True:
         try:
-            if pyautogui.locateOnScreen('images/terminated.png', grayscale=True, confidence=0.7) is not None:
+            if locate_image_on_screen("terminated.png", scale_factor) is not None:
                 pause_event.wait()
                 logging.info("Game Crashed/Terminated")
-                no_button = pyautogui.locateOnScreen('images/no.png', grayscale=True, confidence=0.7)
+                no_button = locate_image_on_screen("no.png", scale_factor)
                 if no_button is not None:
                     logging.info("Clicking No Button")
                     pyautogui.click(no_button.left, no_button.top)
@@ -47,16 +46,16 @@ def game():
             pass
 
         try:
-            if pyautogui.locateOnScreen('images/launcher.png', grayscale=True, confidence=0.5) is not None:
+            if locate_image_on_screen("launcher.png", scale_factor, confidence=0.5) is not None:
                 pause_event.wait()
 
                 logging.info('Game Crashed or launching')
-                yes = pyautogui.locateOnScreen('images/usererroryes.png')
-                if yes is not None:
+                no = locate_image_on_screen("no.png", scale_factor)
+                if no is not None:
                     time.sleep(1)
-                    pyautogui.click(yes)
+                    pyautogui.click(no)
 
-                play = pyautogui.locateOnScreen('images/play.png', confidence=0.8)
+                play = locate_image_on_screen("play.png", scale_factor, confidence=0.8)
                 if play is not None:
                     time.sleep(2)
                     pyautogui.click(play)
@@ -66,21 +65,21 @@ def game():
             pass
 
         try:
-            if pyautogui.locateOnScreen('images/game.png', grayscale=True, confidence=0.95) is not None:
+            if locate_image_on_screen("game.png", scale_factor, confidence=0.95) is not None:
                 pause_event.wait()
-                game = pyautogui.locateOnScreen('images/game.png')
+                game_img = locate_image_on_screen("game.png", scale_factor)
                 if game is not None:
-                    pyautogui.click(game)
+                    pyautogui.click(game_img)
                     logging.info("Launching game")
                     time.sleep(1)
         except ImageNotFound:
             pass
         
         try:
-            if pyautogui.locateOnScreen('images/exit.png', grayscale=True, confidence=0.7) is not None:
+            if locate_image_on_screen("exit.png", scale_factor) is not None:
                 pause_event.wait()
                 time.sleep(0.5)
-                no2_button = pyautogui.locateOnScreen('images/no2.png', confidence=0.8)
+                no2_button = locate_image_on_screen("no2.png", scale_factor, confidence=0.8)
                 if no2_button is not None:
                     pyautogui.click(no2_button)
                     logging.info("False exit, returning to main menu")
@@ -88,7 +87,7 @@ def game():
             pass
 
         try:
-            eft_menu = pyautogui.locateOnScreen('images/eftmenu.png', grayscale=True, confidence=0.7)
+            eft_menu = locate_image_on_screen("eftmenu.png", scale_factor, confidence=0.7)
             if eft_menu is not None:
                 pause_event.wait()
                 pydirectinput.click(eft_menu.left, eft_menu.top)
@@ -98,12 +97,12 @@ def game():
             pass
                         
         try:
-            pmc_menu = pyautogui.locateOnScreen('images/pmc.png', confidence=0.7)
+            pmc_menu = locate_image_on_screen("pmc.png", scale_factor)
             if pmc_menu is not None:
                 pause_event.wait()
                 pydirectinput.click(pmc_menu.left + 20, pmc_menu.top + 20)
                 time.sleep(0.5)
-                next_button = pyautogui.locateOnScreen('images/next.png', confidence=0.7)
+                next_button = locate_image_on_screen("next.png", scale_factor)
                 if next_button is not None:
                     pydirectinput.click(next_button.left + 20, next_button.top + 20)
                     time.sleep(0.5)
@@ -112,18 +111,18 @@ def game():
             pass
 
         try:
-            if pyautogui.locateOnScreen('images/reconnecting.png', grayscale=True, confidence=0.7) is not None:
+            if locate_image_on_screen("reconnecting.png", scale_factor) is not None:
                 pause_event.wait()
                 logging.info("Connection lost")
                 time.sleep(0.2)
-                reconnecting_button = pyautogui.locateOnScreen('images/reconnecting.png', confidence=0.7)
+                reconnecting_button = locate_image_on_screen("reconectting.png", scale_factor)
                 if reconnecting_button is not None:
                     pydirectinput.click(reconnecting_button.left, reconnecting_button.top)
         except ImageNotFound:
             pass
 
         try:
-            if pyautogui.locateOnScreen('images/matching.png', grayscale=True, confidence=0.7) is not None:
+            if locate_image_on_screen("matching.png", scale_factor) is not None:
                 pause_event.wait()
                 if not stopwatch.running:
                     logging.info("Matching and starting countdown.")
@@ -131,7 +130,7 @@ def game():
 
                 if stopwatch.duration >= 240:
                     logging.info("Matching time exceded 4 minutes 30 seconds. Exiting matching and requeuing.")
-                    back_button = pyautogui.locateOnScreen('images/back.png', grayscale=True, confidence=0.7)
+                    back_button = locate_image_on_screen("back.png", scale_factor)
                     if back_button is not None:
                         stopwatch.stop()
                         stopwatch.reset()
@@ -140,7 +139,7 @@ def game():
             pass
     
         try:
-            if pyautogui.locateOnScreen('images/deploy_wait.png', grayscale=True, confidence=0.6) is not None:
+            if locate_image_on_screen("deploy_wait.png", scale_factor) is not None:
                 pause_event.wait()
                 global raid_counter
                 logging.info("Deploying")
@@ -153,7 +152,8 @@ def game():
             pass
 
         try:
-            if pyautogui.locateOnScreen('images/lowstam.png', grayscale=True, confidence=0.9) is not None:
+            if locate_image_on_screen("lowstam.png", scale_factor,
+                                      grayscale=False, confidence=0.7) is not None:
                 pause_event.wait()
                 logging.info("Stamina low, waiting to recover")
                 time.sleep(20)
@@ -161,7 +161,7 @@ def game():
             pass
 
         try:
-            if pyautogui.locateOnScreen('images/bush.png', grayscale=True, confidence=0.9) is not None:
+            if locate_image_on_screen("bush.png", scale_factor) is not None:
                 pause_event.wait()
                 logging.info("Bush detected, attempting to move away")
                 pydirectinput.keyDown('w')
@@ -171,7 +171,7 @@ def game():
             pass
         
         try:
-            if pyautogui.locateOnScreen('images/ingame.png', grayscale=True, confidence=0.45) is not None:
+            if locate_image_on_screen("ingame.png", scale_factor, confidence=.45) is not None:
                 pause_event.wait()
                 logging.info("In Game")
                 pydirectinput.moveTo(5, 540)
@@ -195,18 +195,6 @@ def game():
             pass
 
 
-def _wait_deploy():
-    while True:
-        try:
-            pause_event.wait()
-            if pyautogui.locateOnScreen('images/deploying.png', grayscale=True, confidence=0.7) is not None:
-                logging.info("Deploying soon")
-                time.sleep(300)
-                pydirectinput.click(956, 1015)
-        except ImageNotFound:
-            pass
-
-
 threads = set()
 pause_event = threading.Event()
 pause_event.set()
@@ -221,16 +209,14 @@ def toggle_pause():
         pause_event.set()
 
 
-def run():        
+def run(scale_factor=1):
     restart_game_thread = threading.Thread(target=_restart_game, name="RestartGameThread")
-    game_thread = threading.Thread(target=game, name="GameThread")
-    wait_deploy_thread = threading.Thread(target=_wait_deploy, name="WaitDeployThread")
+    game_thread = threading.Thread(target=game, name="GameThread", args=[scale_factor])
 
     threads.add(restart_game_thread)
     threads.add(game_thread)
-    threads.add(wait_deploy_thread)
 
     for thread in threads:
         thread.start()
 
-    keyboard.on_press_key("q", lambda x: toggle_pause())
+    keyboard.on_press_key("q", lambda _: toggle_pause())
