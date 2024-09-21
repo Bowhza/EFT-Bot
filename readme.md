@@ -1,53 +1,39 @@
 > [!Caution]
-> ### This bot was made by another person and is currently being rewritten/refactored.
-> ### Disregard the readme until further notice.
+>
+> This bot was made by another person and was abandoned, this repository aims to fix and update the script to run on newer versions of the game. If you encounter any bugs or bad code please create an issue/pull request with changes.
 
+# EFT Skill & Death bot
 
+This a bot for leveling up your endurance, strength, and covert (Still work in progress).
+It also inherently is a KD dropper.
+It uses image recognitiion to detect images and make clicks for you.
+It will run around in-game for you like the little bot you are, enjoy.
 
-***EFT Skill & Death bot***
+> [!Important]
+> Works with Python 3.10+
+>
+> When installing Python you **_MUST_** add it to **_PATH_** via the python installer options.
 
-Welcome to the script, this a bot for leveling up your endurance, strength, and covert. It also inherently is a KD dropper. It uses image recognitiion to detect images and make clicks for you. It will run around in game for you like the little bot you are, enjoy.
+## Prerequisites
 
-Works with Python 3.10+
+1. Battlestate Games Launcher must be set to keep Launcher window open.
 
-When installing Python you ***MUST*** add it to ***PATH*** via the python installer options.
+<img src="https://i.imgur.com/bodWnnU.png"/>
 
-Battlestate Games Launcher must be set To keep Launcher window open.(https://i.imgur.com/bodWnnU.png)
+2. The in-game setting for **_Quick Slots_** under the game tab must be set to **_Always Shown_**.
 
-The in-game setting for ***Quick Slots*** under the game tab must be set to ***Always Shown***(https://i.imgur.com/u4LcCv3.png)
+<img src="https://i.imgur.com/u4LcCv3.png"/>
 
-*if the you are highlighting items in Visual Studio after stopping the script hit shift and it will stop*
+_If the you are highlighting items in Visual Studio after stopping the script hit shift and it will stop_.
 
-You can skip all of the manual pip installs by just running the installing python.bat file.
+## How to run the script
 
-After you have installed all the dependencies, run the file called script_run.py to start the bot.
+1. Run the included `Install-Dependencies.bat` file to install the required dependecies.
 
+2. If your monitor is **NOT 1440p**, run the `image_scale.py` script in the `/tools` direcory to scale the images to your screen resolution.
 
- 
-pip install pyscreeze
+3. After you have installed all the dependencies, run the file called `script_run.py` to start the bot.
 
-pip install pywin32
+4. Select the settings you want and let the script do its thing.
 
-pip install win32gui
-
-pip install keyboard
-
-pip install pyautogui
-
-pip install opencv-python
-
-pip install pillow --upgrade
-
-pip install pydirectinput
-
-pip install threading
-
-pip install stopwatch.py
-
-pip install counter
-
-
-
-
-
-
+> Note: **Pressing `Q` toggles pause on the script.**
