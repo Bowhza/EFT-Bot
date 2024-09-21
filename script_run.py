@@ -44,7 +44,7 @@ health = [
 # Skill options wrapped in lambdas
 skills = [
     ["Endurance/strength", lambda: (logging.info("Training Endurance/Strength"),
-                                    skill.endurance.run(scale_factor=scale_factor))],
+                                    skill.endurance.run(scale_factor))],
     ["Covert", lambda: (logging.info("Training Covert"), skill.covert.run())],
 ]
 
@@ -67,7 +67,6 @@ def choose_option(options, option_type):
             print("Please enter a valid number.")
 
 
-# Main bot logic
 def main():
     # Map selection
     map_choice = choose_option(maps, "map")
@@ -87,6 +86,11 @@ def main():
     map_thread.start()
     heal_thread.start()
     skill_thread.start()
+
+    # Join the threads to ensure they complete before exiting
+    map_thread.join()
+    heal_thread.join()
+    skill_thread.join()
 
 
 if __name__ == "__main__":

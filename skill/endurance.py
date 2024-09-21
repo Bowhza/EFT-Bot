@@ -28,10 +28,8 @@ def _restart_game():
 
         pydirectinput.keyUp('shift')
         pydirectinput.keyUp('w')
-        pydirectinput.keyDown('alt')
-        pydirectinput.keyDown('f4')
-        pydirectinput.keyUp('alt')
-        pydirectinput.keyUp('f4')
+
+        pydirectinput.hotkey("alt", "f4")
 
 
 def game(scale_factor):
@@ -221,4 +219,4 @@ def run(scale_factor=1):
     for thread in threads:
         thread.start()
 
-    keyboard.on_press_key("q", lambda x: toggle_pause())
+    keyboard.on_press_key("q", lambda _: toggle_pause())
