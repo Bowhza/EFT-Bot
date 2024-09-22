@@ -1,0 +1,92 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:GUI.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="300"
+		Width="500" Height="300"
+        x:Class="GUI.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="EFT Bot"
+		Background="Transparent"
+        CanResize="False"
+		ExtendClientAreaToDecorationsHint="True"
+		ExtendClientAreaTitleBarHeightHint="-1"
+		ExtendClientAreaChromeHints="NoChrome"
+		>
+
+	<Window.Styles>
+		<Style Selector="Button.start:pressed /template/ ContentPresenter">
+			<Setter Property="Background" Value="LightGreen"/>
+		</Style>
+		<Style Selector="Button.close:pressed /template/ ContentPresenter">
+			<Setter Property="Background" Value="Red"/>
+		</Style>
+		<Style Selector="Button.titlebar:pointerover /template/ ContentPresenter">
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="BorderBrush" Value="White"/>
+		</Style>
+		<Style Selector="Button.bold:pressed">
+			<Setter Property="FontWeight" Value="Bold"/>
+		</Style>
+	</Window.Styles>
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<Border CornerRadius="10" Background="White" ClipToBounds="True">
+		<Grid RowDefinitions="30, *">
+			<Border x:Name="CustomTitleBar" Background="#313131" Padding="3" PointerPressed="Window_PointerPressed">
+				<StackPanel Orientation="Horizontal" Spacing="2" FlowDirection="RightToLeft" Margin="2, 0">
+					<Button Classes="close titlebar" Content="X" FontSize="10" Width="25"
+							HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+							Background="DarkGray"
+							BorderThickness="0"
+							Click="Close_Click"/>
+					<Button Classes="titlebar" Content="-" FontSize="10" Width="25"
+							HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+							Background="DarkGray"
+							BorderThickness="0"
+							Click="Minimize_Click"/>
+				</StackPanel>
+			</Border>
+			<TextBlock Text="EFT Bot" FontSize="18" Foreground="White" FontWeight="Bold" Margin="10"/>
+			<Grid Grid.Row="1" ColumnDefinitions="* *">
+				<StackPanel Grid.Column="0" Margin="10" Spacing="5">
+					<TextBlock Text="Select a Map" FontSize="18" FontWeight="Bold"/>
+					<ComboBox FontSize="12" Width="200"
+							  ItemsSource="{Binding Maps}"
+							  SelectedItem="{Binding SelectedMap}"
+							  MaxDropDownHeight="100"/>
+
+					<TextBlock Text="Select a Healing Option" FontSize="18" FontWeight="Bold"/>
+					<ComboBox FontSize="12" Width="200"
+							  ItemsSource="{Binding HealthOptions}"
+							  SelectedItem="{Binding SelectedHealthOption}"/>
+
+					<TextBlock Text="Select a Training Option" FontSize="18" FontWeight="Bold"/>
+					<ComboBox FontSize="12" Width="200"
+							  ItemsSource="{Binding SkillOptions}"
+							  SelectedItem="{Binding SelectedSkillOption}"/>
+					<Button Margin="0, 5" Classes="start bold" Content="Start" FontSize="18" Width="200"></Button>
+				</StackPanel>
+				
+				<StackPanel Grid.Column="1" Margin="10" Spacing="5">
+					<TextBlock Text="Image Scaler" FontSize="18" FontWeight="Bold"/>
+					<TextBlock TextWrapping="Wrap" Text="Run this option if your display is not 1440p (2k), otherwise the bot will not work."/>
+					<Button Classes="bold" Content="Run Image Scaler" FontSize="18" Width="200"/>
+
+					<TextBlock Text="Shortcuts" FontSize="18" FontWeight="Bold"/>
+					<TextBlock Text="Q - Pauses the bot script." FontWeight="DemiBold"/>
+				</StackPanel>
+			</Grid>
+
+		</Grid>
+	</Border>
+</Window>
