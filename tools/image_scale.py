@@ -35,7 +35,11 @@ def locate_image_on_screen(image_name:str, scale_factor:float, confidence:float 
 def run_image_scaling():
     scale_factor = get_scale_factor()
     print(f"Scale Factor: {scale_factor}")
-    resized_images_path = os.path.join("../images", str(pyautogui.size().height))
+    
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    parent_dir = os.path.dirname(script_dir)  # Go up one level to reach the main directory
+    images_dir = os.path.join(parent_dir, "images")
+    resized_images_path = os.path.join(images_dir, str(pyautogui.size().height))
 
     # If the scale factor is 1, the images are already to scale.
     if scale_factor == 1:

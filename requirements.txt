@@ -6,3 +6,4 @@ stopwatch.py~=2.0.1
 opencv-python~=4.10.0.84
 PyScreeze~=1.0.1
 pywin32
+numpy

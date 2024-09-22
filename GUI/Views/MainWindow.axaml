@@ -3,8 +3,8 @@
         xmlns:vm="using:GUI.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="300"
-		Width="500" Height="300"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="310"
+		Width="500" Height="310"
         x:Class="GUI.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
@@ -74,16 +74,20 @@
 					<ComboBox FontSize="12" Width="200"
 							  ItemsSource="{Binding SkillOptions}"
 							  SelectedItem="{Binding SelectedSkillOption}"/>
-					<Button Margin="0, 5" Classes="start bold" Content="Start" FontSize="18" Width="200"></Button>
+					<Button Margin="0, 14" Classes="start bold" Content="Start" FontSize="18" Width="200"
+							Command="{Binding RunBotScriptCommand}"/>
 				</StackPanel>
 				
 				<StackPanel Grid.Column="1" Margin="10" Spacing="5">
+					<TextBlock Text="Dependencies" FontSize="18" FontWeight="Bold"/>
+					<TextBlock TextWrapping="Wrap" Text="This will setup a python virtual environment and install required packages."/>
+					<Button Classes="bold" Content="Install Dependencies" FontSize="18" Width="200"
+							Command="{Binding RunInstallDependeciesCommand}"/>
+					
 					<TextBlock Text="Image Scaler" FontSize="18" FontWeight="Bold"/>
 					<TextBlock TextWrapping="Wrap" Text="Run this option if your display is not 1440p (2k), otherwise the bot will not work."/>
-					<Button Classes="bold" Content="Run Image Scaler" FontSize="18" Width="200"/>
-
-					<TextBlock Text="Shortcuts" FontSize="18" FontWeight="Bold"/>
-					<TextBlock Text="Q - Pauses the bot script." FontWeight="DemiBold"/>
+					<Button Classes="bold" Content="Run Image Scaler" FontSize="18" Width="200"
+							Command="{Binding RunImageScalerCommand}"/>
 				</StackPanel>
 			</Grid>
 
